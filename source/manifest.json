@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "Missing shortcuts",
+  "version": "0.0.1",
+  "description": "Adds an option to configure missing shortcuts to the browser.",
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "tabs"
+  ],
+  "browser_action": {
+    "default_title": "Configure shortcuts"
+  },
+  "commands": {
+    "move-tab-to-new-window": {
+      "description": "Move current tab to a new window"
+    }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "move-tab-to-new-window@victor.dev",
+      "strict_min_version": "91.0"
+    }
+  }
+}
