@@ -9,6 +9,7 @@ This extension was 100% vide coded. Not a single line inside extension itself wa
 ## Supported Shortcuts
 
 - **Move Tab to New Window**: Move the current tab into a new window and focus it
+- **Move Tab to Next Window**: Move the current tab to the next window (cycles through all windows). If only one window exists, does nothing. The tab is placed above the active tab in the destination window and activated.
 - **Duplicate Tab**: Duplicate the current tab (placed above the current tab in the list)
 
 ## Configure the Shortcut
@@ -17,6 +18,7 @@ This extension was 100% vide coded. Not a single line inside extension itself wa
 2. Click the gear icon → "Manage Extension Shortcuts". ![Configure Shortcuts](images/configure1.png)
 3. Find "Missing shortcuts" → set shortcuts for:
    - "Move current tab to a new window"
+   - "Move current tab to next window"
    - "Duplicate current tab"
    ![Configure Shortcuts](images/configure2.png)
 

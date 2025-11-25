@@ -21,6 +21,9 @@
     },
     "duplicate-tab": {
       "description": "Duplicate current tab"
+    },
+    "move-tab-to-next-window": {
+      "description": "Move current tab to next window"
     }
   },
   "browser_specific_settings": {
