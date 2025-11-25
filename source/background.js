@@ -14,9 +14,30 @@ async function moveActiveTabToNewWindow() {
   }
 }
 
+async function duplicateCurrentTab() {
+  try {
+    const activeTabs = await ext.tabs.query({ active: true, currentWindow: true });
+    const activeTab = activeTabs && activeTabs.length > 0 ? activeTabs[0] : null;
+    if (!activeTab) {
+      return;
+    }
+
+    // Create a new tab with the same URL, positioned above the current tab
+    await ext.tabs.create({
+      url: activeTab.url,
+      index: activeTab.index,
+      active: true
+    });
+  } catch (error) {
+    console.error('Duplicate Tab: failed to duplicate tab', error);
+  }
+}
+
 ext.commands.onCommand.addListener((command) => {
   if (command === 'move-tab-to-new-window') {
     moveActiveTabToNewWindow();
+  } else if (command === 'duplicate-tab') {
+    duplicateCurrentTab();
   }
 });
 
@@ -27,5 +48,3 @@ if (actionApi && typeof actionApi.onClicked?.addListener === 'function') {
     moveActiveTabToNewWindow();
   });
 }
-
-

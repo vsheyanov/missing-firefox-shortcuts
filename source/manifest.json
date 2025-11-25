@@ -18,6 +18,9 @@
   "commands": {
     "move-tab-to-new-window": {
       "description": "Move current tab to a new window"
+    },
+    "duplicate-tab": {
+      "description": "Duplicate current tab"
     }
   },
   "browser_specific_settings": {
