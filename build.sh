@@ -1,1 +1,2 @@
-rm ./build/configure-shortcuts.zip; zip -r -FS ./build/configure-shortcuts.zip ./source/* --exclude '*.git*'
+rm ./build/configure-shortcuts.zip; 
+(cd source && zip -r -FS ../build/configure-shortcuts.zip * --exclude '*.git*')

@@ -43,3 +43,5 @@ For self-signing or permanent installation, you'll need to sign the extension wi
 ```
 rm configure-shortcuts.zip; zip -r -FS ../configure-shortcuts.zip * --exclude '*.git*' --exclude README.md
 ```
+
+Submit https://addons.mozilla.org/en-US/developers/
