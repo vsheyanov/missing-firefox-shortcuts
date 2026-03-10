@@ -49,27 +49,25 @@ async function moveActiveTabToNextWindow() {
       return;
     }
 
-    // Find the current window index
     const currentWindowIndex = allWindows.findIndex(w => w.id === currentWindow.id);
-    
-    // Get the next window in the cycle (wrap around if at the end)
     const nextWindowIndex = (currentWindowIndex + 1) % allWindows.length;
     const nextWindow = allWindows[nextWindowIndex];
 
-    // Get the active tab in the destination window
-    const destinationActiveTabs = await ext.tabs.query({ active: true, windowId: nextWindow.id });
-    const destinationActiveTab = destinationActiveTabs && destinationActiveTabs.length > 0 ? destinationActiveTabs[0] : null;
-    
-    // Determine the index: place above the active tab, or at the end if no active tab
-    const targetIndex = destinationActiveTab ? destinationActiveTab.index : -1;
+    const destTabs = await ext.tabs.query({ windowId: nextWindow.id });
+    const pinnedCount = destTabs.filter((t) => t.pinned).length;
 
-    // Move the tab to the next window, positioned above the active tab
-    await ext.tabs.move(activeTab.id, {
-      windowId: nextWindow.id,
-      index: targetIndex
-    });
+    try {
+      await ext.tabs.move(activeTab.id, {
+        windowId: nextWindow.id,
+        index: pinnedCount
+      });
+    } catch (moveError) {
+      await ext.tabs.move(activeTab.id, {
+        windowId: nextWindow.id,
+        index: 1
+      });
+    }
 
-    // Activate the moved tab and focus the window
     await ext.tabs.update(activeTab.id, { active: true });
     await ext.windows.update(nextWindow.id, { focused: true });
   } catch (error) {
