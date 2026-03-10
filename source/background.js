@@ -14,6 +14,29 @@ async function moveActiveTabToNewWindow() {
   }
 }
 
+async function moveActiveTabToNewBlankWindow() {
+  try {
+    const activeTabs = await ext.tabs.query({ active: true, currentWindow: true });
+    const activeTab = activeTabs && activeTabs.length > 0 ? activeTabs[0] : null;
+    if (!activeTab) {
+      return;
+    }
+
+    const newWindow = await ext.windows.create({ url: 'about:blank', focused: false });
+    const blankTabs = await ext.tabs.query({ windowId: newWindow.id });
+    const blankTab = blankTabs && blankTabs.length > 0 ? blankTabs[0] : null;
+
+    await ext.tabs.move(activeTab.id, { windowId: newWindow.id, index: 0 });
+    if (blankTab) {
+      await ext.tabs.remove(blankTab.id);
+    }
+    await ext.tabs.update(activeTab.id, { active: true });
+    await ext.windows.update(newWindow.id, { focused: true });
+  } catch (error) {
+    console.error('Move Tab to New Blank Window: failed', error);
+  }
+}
+
 async function duplicateCurrentTab() {
   try {
     const activeTabs = await ext.tabs.query({ active: true, currentWindow: true });
@@ -78,6 +101,8 @@ async function moveActiveTabToNextWindow() {
 ext.commands.onCommand.addListener((command) => {
   if (command === 'move-tab-to-new-window') {
     moveActiveTabToNewWindow();
+  } else if (command === 'move-tab-to-new-blank-window') {
+    moveActiveTabToNewBlankWindow();
   } else if (command === 'duplicate-tab') {
     duplicateCurrentTab();
   } else if (command === 'move-tab-to-next-window') {

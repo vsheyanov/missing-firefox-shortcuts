@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Missing shortcutss",
+  "name": "Missing shortcuts",
   "version": "0.0.2",
   "description": "Adds an option to configure missing shortcuts to the browser.",
   "background": {
@@ -18,6 +18,9 @@
   "commands": {
     "move-tab-to-new-window": {
       "description": "Move current tab to a new window"
+    },
+    "move-tab-to-new-blank-window": {
+      "description": "Move current tab to a new blank window (no Essentials)"
     },
     "duplicate-tab": {
       "description": "Duplicate current tab"
